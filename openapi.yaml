@@ -13,6 +13,9 @@ paths:
   /messages:
     post:
       summary: Store a new message
+      operationId: storeMessage
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -21,9 +24,14 @@ paths:
               $ref: '#/components/schemas/Message'
       responses:
         '200':
-          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+          description: Success
     get:
       summary: Search messages
+      operationId: searchMessages
       parameters:
         - in: query
           name: query
@@ -51,3 +59,8 @@ components:
       required:
         - id
         - message
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,7 +1,9 @@
 {
   "openapi" : "3.0.2",
   "info" : {
+    "contact" : { },
     "description" : "A simple API to store and retrieve messages.",
+    "termsOfService" : "http://example.com/terms/",
     "title" : "Echo API",
     "version" : "0.0.1"
   },
@@ -11,6 +13,7 @@
   "paths" : {
     "/messages" : {
       "get" : {
+        "operationId" : "searchMessages",
         "parameters" : [ {
           "explode" : true,
           "in" : "query",
@@ -39,6 +42,7 @@
         "summary" : "Search messages"
       },
       "post" : {
+        "operationId" : "storeMessage",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -51,9 +55,19 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK"
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Message"
+                }
+              }
+            },
+            "description" : "Success"
           }
         },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
         "summary" : "Store a new message"
       }
     }
@@ -75,6 +89,13 @@
         },
         "required" : [ "id", "message" ],
         "type" : "object"
+      }
+    },
+    "securitySchemes" : {
+      "bearerAuth" : {
+        "bearerFormat" : "JWT",
+        "scheme" : "bearer",
+        "type" : "http"
       }
     }
   }

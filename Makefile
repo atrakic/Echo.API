@@ -4,6 +4,7 @@ all: generate
 	dotnet restore
 	dotnet build --configuration Release --no-restore
 	dotnet test --no-restore --verbosity normal
+	dotnet run -p src/Echo.OpenAPI/Echo.OpenAPI.csproj
 
 generate:
 	./scripts/generate.sh
