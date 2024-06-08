@@ -1,16 +1,17 @@
-# create openapi spec for rest Echo api. 
+# create openapi spec for rest Echo api.
 # The api should support storing getting and updating messages to the database.
 # https://github.com/OAI/OpenAPI-Specification/tree/main/examples/v3.0
-openapi: 3.0.0
+
+openapi: 3.0.2
+
+servers:
+  - url: http://localhost:8080
+
 info:
   title: Echo API
-  version: 1.0.0
-  description: A simple API to store and retrieve messages
-  license:
-    name: MIT
-    url: https://opensource.org/licenses/MIT
-servers:
-  - url: /api/v1
+  version: 0.0.1
+  description: A simple API to store and retrieve messages.
+
 paths:
   /messages:
     post:
@@ -20,10 +21,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                message:
-                  type: string
+              $ref: '#/components/schemas/Message'
       responses:
         '200':
           description: OK
@@ -37,6 +35,7 @@ paths:
       responses:
         '200':
           description: OK
+
   /messages/{id}:
     get:
       summary: Get a message by ID
@@ -48,6 +47,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
     put:
       summary: Update a message by ID
       parameters:
@@ -67,3 +70,16 @@ paths:
       responses:
         '200':
           description: OK
+
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+      required:
+        - id
+        - message

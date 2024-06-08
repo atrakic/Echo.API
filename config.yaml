@@ -1,7 +1,12 @@
----
 ## docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli config-help -g aspnetcore
+
 aspnetCoreVersion: 6.0
 swashbuckleVersion: 6.4.0
-packageAuthors: Admir Trakic
-packageVersion: 1.0.0
 packageName: Echo.Api
+useSeparateModelProject: true
+
+# Use DateTime to model date properties even if DateOnly supported. (.net 6.0+ only) (Default: false)
+useDateTimeForDate: true
+
+# Deserialize array types to Collection<T> instead of List<T>. (Default: false)
+# useCollection: true

@@ -5,9 +5,12 @@ out="${1}"
 # docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli help config-help
 # docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli config-help -g aspnetcore
 
-docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate \
+image=openapitools/openapi-generator-cli
+docker pull -q "$image"
+docker run --rm -e CSHARP_POST_PROCESS_FILE=${CSHARP_POST_PROCESS_FILE} -v "${PWD}:/local" openapitools/openapi-generator-cli generate \
     --skip-validate-spec \
+    --enable-post-process-file \
     -c /local/config.yaml \
     -i /local/echo.yaml \
     -g aspnetcore \
-    -o /local/out/"$out"
+    -o /local/"$out"
