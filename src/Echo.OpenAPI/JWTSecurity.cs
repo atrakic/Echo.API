@@ -1,11 +1,9 @@
-namespace Utilities;
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
-internal static class JWTSecurity
+public static class JWTSecurity
 {
-    static OpenApiSecurityRequirement GetDefaultOpenApiSecurityRequirement()
+    public static OpenApiSecurityRequirement GetDefaultOpenApiSecurityRequirement()
         => new OpenApiSecurityRequirement
         {
             {
