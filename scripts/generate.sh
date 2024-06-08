@@ -19,4 +19,4 @@ docker run --rm -e CSHARP_POST_PROCESS_FILE=${CSHARP_POST_PROCESS_FILE} -v "${PW
     -o /local/"$out"
 
 dos2unix $(find . -type f -exec grep -I -q . {} \; -print)
-pre-commit run -a
+#pre-commit run -a

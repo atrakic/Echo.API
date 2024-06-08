@@ -1,8 +1,12 @@
 
-all:
+all: generate
+	dotnet sln add src/Message.DAL/Message.DAL.csproj
 	dotnet restore
 	dotnet build --configuration Release --no-restore
 	dotnet test --no-restore --verbosity normal
+
+generate:
+	./scripts/generate.sh
 
 HELP_ARGS ?= config-help -g aspnetcore
 

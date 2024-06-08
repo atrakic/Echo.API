@@ -9,7 +9,7 @@
     <Version>1.0.0</Version>
     <AssemblyName>Echo.OpenAPI</AssemblyName>
     <PackageId>Echo.OpenAPI</PackageId>
-    <UserSecretsId>ca94f13f-76ed-41d9-9e2e-c217f7caf605</UserSecretsId>
+    <UserSecretsId>ded5b03c-cac0-4ceb-966d-61f53ab7e86c</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
