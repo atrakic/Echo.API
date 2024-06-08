@@ -10,4 +10,4 @@ packageName: Echo.OpenAPI
 useDateTimeForDate: true
 
 # Deserialize array types to Collection<T> instead of List<T>. (Default: false)
-# useCollection: true
+useCollection: true
