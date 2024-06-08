@@ -1,0 +1,81 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "description" : "A simple API to store and retrieve messages.",
+    "title" : "Echo API",
+    "version" : "0.0.1"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8080"
+  } ],
+  "paths" : {
+    "/messages" : {
+      "get" : {
+        "parameters" : [ {
+          "explode" : true,
+          "in" : "query",
+          "name" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Message"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          }
+        },
+        "summary" : "Search messages"
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Message"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Store a new message"
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Message" : {
+        "example" : {
+          "id" : 0,
+          "message" : "message"
+        },
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "id", "message" ],
+        "type" : "object"
+      }
+    }
+  }
+}

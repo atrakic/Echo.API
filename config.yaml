@@ -3,7 +3,8 @@
 aspnetCoreVersion: 6.0
 swashbuckleVersion: 6.4.0
 packageName: Echo.OpenAPI
-useSeparateModelProject: true
+
+#useSeparateModelProject: true
 
 # Use DateTime to model date properties even if DateOnly supported. (.net 6.0+ only) (Default: false)
 useDateTimeForDate: true

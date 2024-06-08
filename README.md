@@ -1,4 +1,4 @@
-# Echo.Api - ASP.NET Core 6.0 Server
+# Echo.OpenAPI - ASP.NET Core 6.0 Server
 
 A simple API to store and retrieve messages.
 
@@ -44,7 +44,7 @@ build.bat
 ## Run in Docker
 
 ```
-cd src/Echo.Api
-docker build -t echo.api .
-docker run -p 5000:8080 echo.api
+cd src/Echo.OpenAPI
+docker build -t echo.openapi .
+docker run -p 5000:8080 echo.openapi
 ```

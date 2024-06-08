@@ -32,41 +32,12 @@ paths:
       responses:
         '200':
           description: OK
-
-  /messages/{id}:
-    get:
-      summary: Get a message by ID
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Message'
-    put:
-      summary: Update a message by ID
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-      responses:
-        '200':
-          description: OK
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
 
 components:
   schemas:
