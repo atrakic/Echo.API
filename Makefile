@@ -1,5 +1,6 @@
 
 all: generate
+	dotnet sln add src/Message.DAL/Message.DAL.csproj
 	dotnet restore
 	dotnet build --configuration Release --no-restore
 	dotnet test --no-restore --verbosity normal
