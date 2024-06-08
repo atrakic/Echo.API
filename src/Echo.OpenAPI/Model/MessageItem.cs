@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Message.Model
+namespace Echo.Model
 {
     public class MessageItem
     {

@@ -1,9 +1,9 @@
-using Message.Model;
+using Echo.Model;
 
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Message.DAL
+namespace Echo.DAL
 {
     public class MessageDbContext : DbContext
     {

@@ -1,10 +1,10 @@
-using Message.Model;
+using Echo.Model;
 
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Xml.Linq;
 
-namespace Message.DAL
+namespace Echo.DAL
 {
     public class MessageRepository : IMessageRepository
     {

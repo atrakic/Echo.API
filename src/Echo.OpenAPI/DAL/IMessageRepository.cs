@@ -1,6 +1,6 @@
-using Message.Model;
+using Echo.Model;
 
-namespace Message.DAL
+namespace Echo.DAL
 {
     public interface IMessageRepository
     {
@@ -9,11 +9,8 @@ namespace Message.DAL
         IEnumerable<MessageItem> GetItems();
 
         void AddItem(MessageItem item);
-
         void UpdateItem(MessageItem item);
-
         void RemoveItem(MessageItem item);
-
         void SaveChanges();
     }
 }
