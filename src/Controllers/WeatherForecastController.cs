@@ -1,6 +1,8 @@
+using Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace src.Controllers;
+using Models;
+namespace Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -12,12 +14,14 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly MyDbContext _context;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, MyDbContext context)
     {
         _logger = logger;
+        _context = context;
     }
-
+    
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
@@ -29,4 +33,14 @@ public class WeatherForecastController : ControllerBase
         })
         .ToArray();
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] WeatherForecast weatherForecast)
+    {
+        _context.WeatherForecasts.Add(weatherForecast);
+        await _context.SaveChangesAsync();
+        return CreatedAtRoute("GetWeatherForecast", new { }, weatherForecast);
+    }
+
+    // use database context and add CRUD operations
 }

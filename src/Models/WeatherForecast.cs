@@ -1,4 +1,4 @@
-namespace src;
+namespace Models;
 
 public class WeatherForecast
 {
