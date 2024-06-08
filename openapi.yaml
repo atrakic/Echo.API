@@ -1,7 +1,4 @@
-# create openapi spec for rest Echo api.
-# The api should support storing getting and updating messages to the database.
 # https://github.com/OAI/OpenAPI-Specification/tree/main/examples/v3.0
-
 openapi: 3.0.2
 
 servers:
