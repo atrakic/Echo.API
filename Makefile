@@ -1,8 +1,11 @@
 
-all:
+all: generate
 	dotnet restore
 	dotnet build --configuration Release --no-restore
 	dotnet test --no-restore --verbosity normal
+
+generate:
+	./scripts/generate.sh
 
 HELP_ARGS ?= config-help -g aspnetcore
 
