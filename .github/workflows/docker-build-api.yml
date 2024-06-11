@@ -2,10 +2,10 @@
 name: Docker Build API
 
 on:
+  # Running a workflow based on the conclusion of another workflow
   workflow_run:
     workflows: [ci]
-    types:
-      - completed
+    types: [completed]
 
 jobs:
   docker-build-api:
