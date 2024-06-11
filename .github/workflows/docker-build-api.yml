@@ -17,14 +17,12 @@ jobs:
       pull-requests: write # needed to create and update comments in PRs
 
     secrets:
-
       # Only needed if with:dockerhub-enable is true below
       # https://hub.docker.com/settings/security
       dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
     with:
-
       ### REQUIRED
       ### ENABLE ONE OR BOTH REGISTRIES
       ### tell docker where to push.
@@ -35,8 +33,7 @@ jobs:
       ### A list of the account/repo names for docker build. List should match what's enabled above
       ### defaults to:
       image-names: |
-         ghcr.io/${{ github.repository }}-api
-         #  ${{ github.repository }}
+         ghcr.io/${{ github.repository }}
 
 
       ### set rules for tagging images, based on special action syntax:
