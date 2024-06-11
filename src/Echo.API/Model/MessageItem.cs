@@ -1,4 +1,4 @@
-namespace Echo.Model
+namespace EchoApi.Model
 {
     public class MessageItem
     {

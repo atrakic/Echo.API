@@ -1,6 +1,0 @@
-@Echo.OpenAPI_HostAddress = http://localhost:5062
-
-GET {{Echo.OpenAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

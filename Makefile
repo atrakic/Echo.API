@@ -1,6 +1,7 @@
-all:
+all: build
+	dotnet run --project ./src/Echo.API/Echo.API.csproj
+
+build:
 	dotnet restore
 	dotnet build --configuration Release --no-restore
 	dotnet test --no-restore --verbosity normal
-	dotnet user-jwts list
-	dotnet run --project src/Echo.OpenAPI/Echo.OpenAPI.csproj

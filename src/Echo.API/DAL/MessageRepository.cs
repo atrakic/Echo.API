@@ -1,10 +1,10 @@
-using Echo.Model;
+using EchoApi.Model;
+using EchoApi.Context;
 
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Xml.Linq;
 
-namespace Echo.DAL
+namespace EchoApi.DAL
 {
     public class MessageRepository : IMessageRepository
     {

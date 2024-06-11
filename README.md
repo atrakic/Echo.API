@@ -1,3 +1,3 @@
 # Echo.OpenAPI
 
-> A simple API to store and retrieve messages.
+> A minimal API to echo messages.

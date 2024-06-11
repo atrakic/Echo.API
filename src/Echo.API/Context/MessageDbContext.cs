@@ -1,9 +1,9 @@
-using Echo.Model;
+using EchoApi.Model;
 
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Echo.DAL
+namespace EchoApi.Context
 {
     public class MessageDbContext : DbContext
     {
