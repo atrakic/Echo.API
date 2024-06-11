@@ -22,11 +22,11 @@ env:
 jobs:
   ci:
     name: Build
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest  ## ${{ matrix.os }}
     if: ${{ github.actor != 'dependabot[bot]' }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest,windows-latest]
+    #strategy:
+    #  matrix:
+    #    os: [ubuntu-latest,windows-latest]
 
     steps:
       - uses: actions/checkout@v4

@@ -1,10 +1,8 @@
----
-name: Docker Build API
+name: Docker build (API)
 
 on:
-  # Running a workflow based on the conclusion of another workflow
   workflow_run:
-    workflows: [ci]
+    workflows: [Build]
     types: [completed]
 
 jobs:
