@@ -1,13 +1,11 @@
-using Echo.Model;
+using EchoApi.Model;
 
-namespace Echo.DAL
+namespace EchoApi.DAL
 {
     public interface IMessageRepository
     {
         MessageItem? GetItem(int id);
-
         IEnumerable<MessageItem> GetItems();
-
         void AddItem(MessageItem item);
         void UpdateItem(MessageItem item);
         void RemoveItem(MessageItem item);
