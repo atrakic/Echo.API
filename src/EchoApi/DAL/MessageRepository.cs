@@ -8,8 +8,8 @@ namespace EchoApi.DAL
 {
     public class MessageRepository : IMessageRepository
     {
-        private readonly MessageDbContext context;
-        public MessageRepository(MessageDbContext context)
+        private readonly ApiDbContext context;
+        public MessageRepository(ApiDbContext context)
         {
             this.context = context;
 

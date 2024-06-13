@@ -12,7 +12,7 @@ EXPOSE 8443
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG TARGETARCH
 WORKDIR /src
-COPY src/Echo.API/Echo.API.csproj .
+COPY src/EchoAPI/EchoAPI.csproj .
 RUN dotnet restore -a $TARGETARCH
 COPY src/Echo.API/. .
 

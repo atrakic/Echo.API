@@ -4,7 +4,7 @@ namespace EchoApi.Context
 {
     public class SeedData
     {
-        public static void Initialize(MessageDbContext context)
+        public static void Initialize(ApiDbContext context)
         {
             context.Database.EnsureCreated();
 
