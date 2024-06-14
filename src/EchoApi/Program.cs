@@ -172,3 +172,6 @@ static bool AuthenticateUser(UserCredentials credentials)
 
 public partial class Program
 { }
+
+
+// https://stackoverflow.com/questions/74505269/using-jwt-with-a-secret-key-to-handle-single-sign-on
