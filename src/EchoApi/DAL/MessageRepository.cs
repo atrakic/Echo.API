@@ -18,38 +18,38 @@ namespace EchoApi.DAL
                 return;
             }
 
-            var messageItems = new MessageItem[]
+            var messageItems = new Message[]
             {
-                new MessageItem { Name = "Item1" },
-                new MessageItem { Name = "Item2" },
-                new MessageItem { Name = "Item3" },
+                new Message { Name = "Item1" },
+                new Message { Name = "Item2" },
+                new Message { Name = "Item3" },
             };
 
             context.Items.AddRange(messageItems);
             context.SaveChanges();
         }
 
-        public void AddItem(MessageItem item)
+        public void AddItem(Message item)
         {
             context.Items.Add(item);
         }
 
-        public void UpdateItem(MessageItem item)
+        public void UpdateItem(Message item)
         {
             context.Items.Update(item);
         }
 
-        public MessageItem? GetItem(int id)
+        public Message? GetItem(int id)
         {
             return context.Items.FirstOrDefault(x => x.Id.Equals(id));
         }
 
-        public IEnumerable<MessageItem> GetItems()
+        public IEnumerable<Message> GetItems()
         {
             return context.Items.ToList();
         }
 
-        public void RemoveItem(MessageItem item)
+        public void RemoveItem(Message item)
         {
             context.Items.Remove(item);
         }

@@ -24,10 +24,10 @@ using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddDbContext<ApiDbContext>(o => o.UseInMemoryDatabase("MyApiDb"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -88,35 +88,32 @@ app.MapPost("/token", (TokenService tokenService, [FromBody] UserCredentials cre
 });
 */
 
+
 app.MapGet("/api/messages", (IMessageRepository msgRepository) =>
 {
     int MAX_MESSAGE_ITEMS = 10;
     return TypedResults.Ok(msgRepository.GetItems().Take(MAX_MESSAGE_ITEMS));
-})
-.WithName("GetAllMessageItems")
-.WithOpenApi();
+});
 
-app.MapGet("/api/messages/{id:int}", Results<Ok<MessageItem>, NotFound> (int id, IMessageRepository msgRepository) =>
+app.MapGet("/api/messages/{id:int}", Results<Ok<Message>, NotFound> (int id, IMessageRepository msgRepository) =>
 {
     var item = msgRepository.GetItem(id);
     return item != null ? TypedResults.Ok(item) : TypedResults.NotFound();
 })
 .RequireAuthorization()
-.WithName("GetMessageItemId")
 .WithOpenApi();
 
-app.MapPost("/api/messages", (MessageItem item, IMessageRepository msgRepository) =>
+app.MapPost("/api/messages", (Message item, IMessageRepository msgRepository) =>
 {
     msgRepository.AddItem(item);
     msgRepository.SaveChanges();
     return Results.Created($"/api/messages/{item.Id}", item);
 })
 .RequireAuthorization()
-.WithName("PostMessageItem")
 .WithOpenApi();
 
 app.MapPut("/api/messages/{id:int}",
-    Results<NoContent, NotFound> (int id, MessageItem msgItem, IMessageRepository msgRepository) =>
+    Results<NoContent, NotFound> (int id, Message msgItem, IMessageRepository msgRepository) =>
 {
     var existingItem = msgRepository.GetItem(id);
 
@@ -133,7 +130,6 @@ app.MapPut("/api/messages/{id:int}",
 
 })
 .RequireAuthorization()
-.WithName("UpdateExistingMessageItem")
 .WithOpenApi();
 
 app.MapDelete("/api/messages/{id:int}",
@@ -151,7 +147,6 @@ app.MapDelete("/api/messages/{id:int}",
     return TypedResults.NoContent();
 })
 .RequireAuthorization()
-.WithName("DeleteExistingMessageItem")
 .WithOpenApi();
 
 app.Run();

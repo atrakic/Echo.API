@@ -11,8 +11,19 @@ namespace EchoApi.Context
         {
         }
 
-        public DbSet<MessageItem> Items { get; set; }
+        public DbSet<Message> Items { get; set; }
         //public DbSet<UserCredentials> Users { get; set; }
+
+        public async virtual Task<List<Message>> GetMessagesAsync()
+        {
+          return await Items
+            .OrderBy(message => message.CreatedAt)
+            .AsNoTracking()
+            .ToListAsync();
+        }
+
+        // https://github.com/dotnet/AspNetCore.Docs.Samples/blob/main/test/integration-tests/8.x/IntegrationTestsSample/src/RazorPagesProject/Data/ApplicationDbContext.cs
+        // ...
     }
 
     /*

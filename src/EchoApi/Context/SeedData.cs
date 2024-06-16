@@ -18,14 +18,14 @@ namespace EchoApi.Context
                 return;
             }
 
-            var messageItems = new MessageItem[]
+            var items = new Message[]
             {
-                new MessageItem { Name = "Hello World!" },
-                new MessageItem { Name = "Hello Universe!" },
-                new MessageItem { Name = "Hello Galaxy!" },
+                new Message { Name = "Hello World!" },
+                new Message { Name = "Hello Universe!" },
+                new Message { Name = "Hello Galaxy!" },
             };
 
-            context.Items.AddRange(messageItems);
+            context.Items.AddRange(items);
             context.SaveChanges();
         }
     }
