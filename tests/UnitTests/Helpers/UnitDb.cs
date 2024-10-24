@@ -3,14 +3,14 @@ using EchoApi.Context;
 
 namespace UnitTests.Helpers;
 
-public class UnitDb : IDbContextFactory<MessageDbContext>
+public class UnitDb : IDbContextFactory<ApiDbContext>
 {
-    public MessageDbContext CreateDbContext()
+    public ApiDbContext CreateDbContext()
     {
-        var options = new DbContextOptionsBuilder<MessageDbContext>()
+        var options = new DbContextOptionsBuilder<ApiDbContext>()
             .UseInMemoryDatabase($"InMemoryTestDb-{DateTime.Now.ToFileTimeUtc()}")
             .Options;
 
-        return new MessageDbContext(options);
+        return new ApiDbContext(options);
     }
 }

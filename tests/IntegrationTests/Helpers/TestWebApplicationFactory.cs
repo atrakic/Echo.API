@@ -15,17 +15,17 @@ public class TestWebApplicationFactory<TProgram>
     {
         builder.ConfigureServices(services =>
         {
-            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<MessageDbContext>));
+            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<ApiDbContext>));
 
             if (descriptor != null)
             {
                 services.Remove(descriptor);
             }
 
-            services.AddDbContext<MessageDbContext>(o => o.UseInMemoryDatabase("MyMessageDb"));
+            services.AddDbContext<ApiDbContext>(o => o.UseInMemoryDatabase("MyMessageDb"));
 
             /**
-            services.AddDbContext<MessageDbContext>(options =>
+            services.AddDbContext<ApiDbContext>(options =>
             {
                 var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 options.UseSqlite($"Data Source={Path.Join(path, "EchoApi_tests.db")}");

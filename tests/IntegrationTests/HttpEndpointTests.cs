@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
+using EchoApi;
 using EchoApi.DAL;
 
 using IntegrationTests.Helpers;
