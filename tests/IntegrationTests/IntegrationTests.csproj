@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\EchoAPI\EchoAPI.csproj" />
+    <ProjectReference Include="..\..\src\EchoApi\EchoApi.csproj" />
   </ItemGroup>
 
 </Project>
