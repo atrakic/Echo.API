@@ -11,25 +11,17 @@ namespace EchoApi.Context
         {
         }
 
-        public DbSet<Message> Items { get; set; }
-        //public DbSet<UserCredentials> Users { get; set; }
+        public DbSet<Messages> Items { get; set; }
 
-        public async virtual Task<List<Message>> GetMessagesAsync()
+        public async virtual Task<List<Messages>> GetMessagesAsync()
         {
-          return await Items
-            .OrderBy(message => message.CreatedAt)
-            .AsNoTracking()
-            .ToListAsync();
+            return await Items.ToListAsync();
         }
 
-        // https://github.com/dotnet/AspNetCore.Docs.Samples/blob/main/test/integration-tests/8.x/IntegrationTestsSample/src/RazorPagesProject/Data/ApplicationDbContext.cs
-        // ...
+        public async virtual Task AddMessageAsync(Messages message)
+        {
+            await Items.AddAsync(message);
+            await SaveChangesAsync();
+        }
     }
-
-    /*
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<UserCredentials>()
-            .HasNoKey();
-    } */
 }

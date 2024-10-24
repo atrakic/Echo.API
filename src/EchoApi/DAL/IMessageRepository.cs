@@ -4,11 +4,11 @@ namespace EchoApi.DAL
 {
     public interface IMessageRepository
     {
-        Message? GetItem(int id);
-        IEnumerable<Message> GetItems();
-        void AddItem(Message item);
-        void UpdateItem(Message item);
-        void RemoveItem(Message item);
+        Messages? GetItem(int id);
+        IEnumerable<Messages> GetItems();
+        void AddItem(Messages item);
+        void UpdateItem(Messages item);
+        void RemoveItem(Messages item);
         void SaveChanges();
     }
 }
