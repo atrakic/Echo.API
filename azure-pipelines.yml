@@ -1,0 +1,62 @@
+trigger:
+  - main
+resources:
+  - repo: self
+pool:
+  vmImage: 'ubuntu-latest'
+variables:
+  - group: 'docker-variables'
+  - name: repository
+    value: $(dockerRepository)/$(imageName)
+  - name: imageToDeploy
+    value: $(dockerRepository)/$(imageName)
+  - name: tag
+    value: '$(Build.BuildId)'
+  - name: buildConfiguration
+    value: 'Release'
+  - name: containerAppName
+    value: 'containerapp'
+  - name: resourceGroup
+    value: 'containerapp-rg'
+  - name: azureSubscription
+    value: 'AzureSubscription'
+  - name: dockerRegistryServiceConnection
+    value: 'DockerRegistry'
+stages:
+  - stage: Build
+    displayName: Build
+    jobs:
+      - job: Build
+        displayName: Build
+        steps:
+          - template: .azdo/dotnet-steps.yml
+  - stage: DockerBuild
+    displayName: Build Docker image
+    jobs:
+      - job: Build
+        displayName: Build and push docker image
+        steps:
+          - task: Docker@2
+            displayName: Build and push the docker image
+            inputs:
+              command: buildAndPush
+              containerRegistry: $(dockerRegistryServiceConnection)
+              repository: $(repository)
+              tags: |
+                $(tag)
+                latest
+  - stage: Deploy
+    displayName: Deploy docker container
+    dependsOn: DockerBuild
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - job: Deploy
+        displayName: Deploy the container to Azure Container Apps
+        steps:
+          - task: AzureContainerApps@1
+            displayName: Deploy the docker image
+            inputs:
+              azureSubscription: $(azureSubscription)
+              containerAppName: $(containerAppName)
+              resourceGroup: $(resourceGroup)
+              imageToDeploy: $(imageToDeploy):$(tag)

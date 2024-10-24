@@ -8,21 +8,25 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8443
 
-
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG TARGETARCH
 WORKDIR /src
-COPY src/EchoAPI/EchoAPI.csproj .
-RUN dotnet restore -a $TARGETARCH
-COPY src/Echo.API/. .
 
+# Copy project file and restore as distinct layers
+COPY --link src/EchoApi/*.csproj .
+RUN dotnet restore -a $TARGETARCH
 
 FROM build AS publish
-RUN dotnet publish -a $TARGETARCH --no-restore -c Release -o /app/publish
+# Copy source code and publish app
+COPY --link src/EchoApi/. .
+ARG Configuration=Release
+RUN dotnet publish -a $TARGETARCH --no-restore -c "${Configuration}" -o /app/publish
 
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ARG APP_UID=1000
 USER $APP_UID
-ENTRYPOINT ["./Echo.API"]
+ENV DOTNET_EnableDiagnostics=0
+ENTRYPOINT ["dotnet", "EchoApi.dll"]

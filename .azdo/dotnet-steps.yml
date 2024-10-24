@@ -1,0 +1,37 @@
+steps:
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK'
+    enabled: false
+    inputs:
+      version: '6.x'
+      includePreviewVersions: true # Required for preview versions
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'restore'
+      #feedsToUse: 'select'
+      #vstsFeed: 'my-vsts-feed' # A series of numbers and letters
+
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet build $(buildConfiguration)'
+    inputs:
+      command: 'build'
+      arguments: '--configuration $(buildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet test $(buildConfiguration)'
+    inputs:
+      command: 'test'
+      arguments: '--configuration $(buildConfiguration) --logger trx --collect "Code coverage"'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet publish $(buildConfiguration)'
+    enabled: false
+    inputs:
+      command: 'publish'
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: VSTest
+      testResultsFiles: '**/*.trx'

@@ -35,7 +35,40 @@ public partial class Program
         builder.Services.AddScoped<IMessageRepository, MessageRepository>();
         builder.Services.AddSingleton<TokenService>();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(x =>
+        {
+            x.AddSecurityDefinition(
+                "Bearer",
+                new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    BearerFormat = "JWT"
+                }
+            );
+
+            x.SupportNonNullableReferenceTypes();
+
+            x.AddSecurityRequirement(
+                new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                }
+            );
+        });
+
         builder.Services.AddHealthChecks();
         builder.Services.AddAuthorization();
         builder.Services.AddAuthentication("Bearer")
