@@ -31,8 +31,8 @@ public static class EndpointMappings
             }
         });
 
-        group.MapGet("/api/messages", GetAllMessages);
-        group.MapGet("/api/message/{id:int}", GetMessageById).WithOpenApi();
+        group.MapGet("/api/messages", GetAllMessages).RequireAuthorization().WithOpenApi();
+        group.MapGet("/api/message/{id:int}", GetMessageById).RequireAuthorization().WithOpenApi();
         group.MapPost("/", CreateMessage).RequireAuthorization().WithOpenApi();
         group.MapPut("/api/message/{id}", UpdateMessage).RequireAuthorization().WithOpenApi();
         group.MapDelete("/api/message/{id}", DeleteMessage).RequireAuthorization().WithOpenApi();

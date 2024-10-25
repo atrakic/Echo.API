@@ -22,10 +22,9 @@ public class HttpEndpointTests
     }
 
     [Fact]
-    public void RoutesExistsTest()
+    public void UnauthorizedRouteExistsTest()
     {
         new string[] {
-            "/api/messages",
             "/healthz" }
             .ToList()
             .ForEach(async path =>

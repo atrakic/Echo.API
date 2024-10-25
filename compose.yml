@@ -1,10 +1,11 @@
 services:
-  app:
+  api:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app
+    container_name: api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - USERNAME=admin
+      - PASSWORD=admin123
     ports:
       - 8080:8080

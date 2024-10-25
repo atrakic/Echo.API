@@ -96,21 +96,17 @@ public partial class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
-            app.UseSwagger();
-            app.UseSwaggerUI(
-                c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Echo API V1");
-                }
-            );
-            app.UseOpenApi();
         }
 
-        //app.MapSwagger().RequireAuthorization();
-        app.MapHealthChecks("/healthz");
+        app.UseSwagger();
+        app.UseSwaggerUI(
+            c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Echo API V1");
+            }
+        );
+        app.UseOpenApi();
         //app.UseHttpsRedirection();
-
-        // Call the extension methods to map the routes
         app.MapEchoApiV1();
         app.Run();
     }
