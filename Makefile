@@ -1,4 +1,4 @@
-export IMAGE?=docker pull ghcr.io/atrakic/echo.api:latest
+export IMAGE?=ghcr.io/atrakic/echo.api:latest
 export CONTAINERAPP_NAME?=echo-api
 export CONTAINERAPPS_ENVVARS?=USERNAME=admin,PASSWORD=admin123
 
