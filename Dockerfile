@@ -2,7 +2,7 @@
 # docker buildx build -t foo .
 # docker run -it --rm -p 8080:8080 -e ASPNETCORE_ENVIRONMENT=Development foo
 
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 LABEL org.opencontainers.image.description="A simple API to echo messages"
 WORKDIR /app
 EXPOSE 8080
