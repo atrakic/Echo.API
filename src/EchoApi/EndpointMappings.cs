@@ -1,3 +1,5 @@
+using System.Drawing;
+
 using EchoApi.Auth;
 using EchoApi.DAL;
 using EchoApi.Model;
@@ -13,9 +15,11 @@ namespace EchoApi;
 
 public static class EndpointMappings
 {
+    private const string API_VERSION = "v1";
+    private const string API_BASE_PATH = "/api/" + API_VERSION;
     public static void MapEchoApiV1(this IEndpointRouteBuilder group)
     {
-        group.MapGet("/healthz", () => Results.Ok());
+        group.MapGet("/healthz", () => Results.Ok("Healthy")).WithOpenApi();
         group.MapPost("/token", (TokenService tokenService, [FromBody] UserCredentials credentials) =>
         {
             bool isValidUser = AuthenticateUser(credentials);
@@ -31,11 +35,53 @@ public static class EndpointMappings
             }
         });
 
-        group.MapGet("/", GetAllMessages).RequireAuthorization().WithOpenApi();
-        group.MapPost("/", CreateMessage).RequireAuthorization().WithOpenApi();
-        group.MapGet("/api/message/{id:int}", GetMessageById).RequireAuthorization().WithOpenApi();
-        group.MapPut("/api/message/{id}", UpdateMessage).RequireAuthorization().WithOpenApi();
-        group.MapDelete("/api/message/{id}", DeleteMessage).RequireAuthorization().WithOpenApi();
+        group.MapGet(API_BASE_PATH, GetHttpRequestContext).WithOpenApi();
+        group.MapGet(API_BASE_PATH + "/message", GetAllMessages).RequireAuthorization().WithOpenApi();
+        group.MapPost(API_BASE_PATH + "/message", CreateMessage).RequireAuthorization().WithOpenApi();
+        group.MapGet(API_BASE_PATH + "/message/{id:int}", GetMessageById).RequireAuthorization().WithOpenApi();
+        group.MapPut(API_BASE_PATH + "/message/{id}", UpdateMessage).RequireAuthorization().WithOpenApi();
+        group.MapDelete(API_BASE_PATH + "/message/{id}", DeleteMessage).RequireAuthorization().WithOpenApi();
+    }
+
+    private static IResult GetHttpRequestContext(HttpContext context)
+    {
+        var cookies = context.Request.Cookies;
+        var method = context.Request.Method;
+        var headers = context.Request.Headers;
+        var path = context.Request.Path;
+        var subdomains = context.Request.Host;
+        var connectionMethods = context.Connection.RemotePort;
+        var protocol = context.Request.Protocol;
+        var query = context.Request.QueryString;
+        var osHostName = System.Environment.MachineName;
+
+        string ip;
+        string ips;
+        try
+        {
+            ip = context.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
+            ips = context.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
+        }
+        catch (System.Net.Sockets.SocketException)
+        {
+            ip = "Unknown";
+            ips = "Unknown";
+        }
+
+        return Results.Ok(new
+        {
+            cookies,
+            method,
+            headers,
+            path,
+            subdomains,
+            connectionMethods,
+            protocol,
+            query,
+            ip,
+            ips,
+            osHostName
+        });
     }
 
     private static IResult GetAllMessages(IMessageRepository msgRepository)
@@ -94,8 +140,11 @@ public static class EndpointMappings
     /// <returns>True if the user is authenticated, otherwise false.</returns>
     private static bool AuthenticateUser(UserCredentials credentials)
     {
-        var USERNAME = Environment.GetEnvironmentVariable("USERNAME") ?? "admin";    //builder.Configuration["AppSettings:Authentication:Username"];
-        var PASSWORD = Environment.GetEnvironmentVariable("PASSWORD") ?? "admin123"; //builder.Configuration["AppSettings:Authentication:Password"];
+        var USERNAME = Environment.GetEnvironmentVariable("USERNAME") ?? "admin";
+        //builder.Configuration["AppSettings:Authentication:Username"];
+
+        var PASSWORD = Environment.GetEnvironmentVariable("PASSWORD") ?? "admin123";
+        //builder.Configuration["AppSettings:Authentication:Password"];
 
         if (credentials.Username != USERNAME || credentials.Password != PASSWORD)
         {
