@@ -25,7 +25,8 @@ public class HttpEndpointTests
     public void UnauthorizedRouteExistsTest()
     {
         new string[] {
-            "/healthz" }
+            "/healthz",
+            }
             .ToList()
             .ForEach(async path =>
             {

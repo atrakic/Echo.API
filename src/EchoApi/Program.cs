@@ -82,14 +82,15 @@ public partial class Program
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = builder.Configuration?["AppSettings:Jwt:Issuer"],
                     ValidAudience = builder.Configuration?["AppSettings:Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration?["AppSettings:Jwt:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(builder.Configuration?["AppSettings:Jwt:Key"])
+                    )
                 };
             }
         );
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline
         app.UseAuthentication();
         app.UseAuthorization();
 
